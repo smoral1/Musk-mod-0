@@ -617,14 +617,19 @@ print("-----------------------\n")
 # por ti que informe sobre ello. Por ejemplo: la
 # excepción podría llamarse NegativeDifferenceException.
 
+class NegativeDifferenceException(Exception):
+    def __init__(self, message="La diferencia es negativa"):
+        self.message = message
+        super().__init__(self.message)
+
 def diferencia(a, b):
     if a - b < 0:
-        raise Exception("NegativeDifferenceException")
+        raise NegativeDifferenceException("Diferencia negativa")
     return a - b
 
 try:
     print(diferencia(10, 20))
-except Exception as e:
+except NegativeDifferenceException as e:
     print(e)
 
 
@@ -637,9 +642,9 @@ print("-----------------------\n")
 # Crea una funcicón que calcule la división entre
 # dos números. Debe imprimir el mensaje 'Los
 # parámetros deben ser números enteros' cuando
-# se geneera una excepción de tipo y 'El divisor no
-# puede ser 0' cuando se genra un
-# erodivisionerror.
+# se genera una excepción de tipo y 'El divisor no
+# puede ser 0' cuando se genera un
+# zerodivisionerror.
 
 def division(a, b):
     if not isinstance(a, int) or not isinstance(b, int):
@@ -649,8 +654,10 @@ def division(a, b):
     return a / b
 
 try:
-    print(division(10, 0))
-except Exception as e:
+    print(division(10, 0.1))
+except TypeError as e:
+    print(e)
+except ZeroDivisionError as e:
     print(e)
 
 
@@ -660,7 +667,7 @@ print("-----------------------\n")
 
 
 # EJERCICIO 4
-# Añade a la función anteriorm un mensaje que se
+# Añade a la función anterior un mensaje que se
 # imprima al final de la ejecución de la función
 # indepentientemente de si se ha generado
 # excepción o no.
@@ -674,10 +681,13 @@ def division(a, b):
 
 try:
     print(division(10, 0))
-    print("Ejecución finalizada correctamente")
-except Exception as e:
+except TypeError as e:
     print(e)
-    print("Ejecución finalizada con error")
+except ZeroDivisionError as e:
+    print(e)
+
+finally:
+    print("Fin de la ejecución")
 
 
 print("\nFIN DEL PROGRAMA")
